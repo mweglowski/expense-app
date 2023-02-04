@@ -3,51 +3,59 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { Provider } from "react-redux";
 
 import ExpensesScreen from "./screens/ExpensesScreen";
 import RecentScreen from "./screens/RecentScreen";
 import IconButton from "./components/IconButton";
+import { store } from "./store/store";
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <>
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={{
-            headerRight: () => {
-              return (
-                <IconButton
-                  style={styles.headerIcon}
-                  icon="add"
-                  size={32}
-                  color="black"
-                />
-              );
-            },
-          }}
-        >
-          <Tab.Screen
-            name="Recent"
-            component={RecentScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <Ionicons name="hourglass-outline" color={color} size={size} />
-              ),
+      <Provider store={store}>
+        <NavigationContainer>
+          <Tab.Navigator
+            screenOptions={{
+              headerRight: () => {
+                return (
+                  <IconButton
+                    style={styles.headerIcon}
+                    icon="add"
+                    size={32}
+                    color="black"
+                  />
+                );
+              },
             }}
-          />
-          <Tab.Screen
-            name="Expenses"
-            component={ExpensesScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <Ionicons name="wallet-outline" color={color} size={size} />
-              ),
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+          >
+            <Tab.Screen
+              name="Recent"
+              component={RecentScreen}
+              options={{
+                tabBarIcon: ({ color, size }) => (
+                  <Ionicons
+                    name="hourglass-outline"
+                    color={color}
+                    size={size}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Expenses"
+              component={ExpensesScreen}
+              options={{
+                tabBarIcon: ({ color, size }) => (
+                  <Ionicons name="wallet-outline" color={color} size={size} />
+                ),
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </Provider>
     </>
   );
 }

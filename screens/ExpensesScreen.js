@@ -1,9 +1,10 @@
 import { Text, View } from "react-native";
+import { useSelector } from "react-redux";
+
+import ExpensesList from "../components/ExpensesList";
 
 export default function ExpensesScreen() {
-  return (
-    <View>
-      <Text>EXPENSES SCREEN</Text>
-    </View>
-  );
+  const expenses = useSelector((state) => state.expenses.items);
+
+  return <ExpensesList items={expenses} />;
 }
