@@ -28,8 +28,8 @@ export default function Expense({ itemData }) {
         <Text style={styles.title}>{itemData.title}</Text>
         <Text style={styles.date}>{dateFormatted}</Text>
       </View>
-      <View style={styles.priceContainer}>
-        <Text style={styles.price}>{itemData.price}$</Text>
+      <View style={styles.amountContainer}>
+        <Text style={styles.amount}>{itemData.amount.toFixed(2)}$</Text>
       </View>
     </Pressable>
   );
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   date: {
     color: Colors.orange500,
   },
-  priceContainer: {
+  amountContainer: {
     minWidth: 80,
     padding: 8,
     backgroundColor: Colors.orange400,
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     elevation: 12,
     shadowColor: Colors.orange400,
   },
-  price: {
+  amount: {
     textAlign: "center",
     fontWeight: "bold",
     color: Colors.gray800,

@@ -11,7 +11,7 @@ import { Colors } from "../assets/colors";
 export default function EditExpenseScreen({ route }) {
   let { expenseData } = route.params
   const [expenseTitleText, setExpenseTitleText] = useState(expenseData.title);
-  const [expensePrice, setExpensePrice] = useState(expenseData.price);
+  const [expenseAmount, setExpenseAmount] = useState(expenseData.amount);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -19,13 +19,13 @@ export default function EditExpenseScreen({ route }) {
     setExpenseTitleText(inputValue);
   }
 
-  function expensePriceChangeHandler(inputValue) {
-    setExpensePrice(inputValue);
+  function expenseAmountChangeHandler(inputValue) {
+    setExpenseAmount(inputValue);
   }
 
   function clearInputs() {
     setExpenseTitleText("");
-    setExpensePrice("");
+    setExpenseAmount("");
   }
 
   function cancelHandler() {
@@ -39,7 +39,7 @@ export default function EditExpenseScreen({ route }) {
     const expense = {
       id: id,
       title: expenseTitleText,
-      price: +expensePrice,
+      amount: +expenseAmount,
       date: date,
     };
 
@@ -66,11 +66,11 @@ export default function EditExpenseScreen({ route }) {
 
       <TextInput
         style={styles.input}
-        placeholder="Price"
+        placeholder="Amount"
         placeholderTextColor={Colors.orange700}
         keyboardType="numeric"
-        onChangeText={expensePriceChangeHandler}
-        value={expensePrice.toString()}
+        onChangeText={expenseAmountChangeHandler}
+        value={expenseAmount.toString()}
       />
 
       <View style={styles.controlButtons}>

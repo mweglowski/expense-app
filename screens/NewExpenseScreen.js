@@ -10,7 +10,7 @@ import { Colors } from "../assets/colors";
 
 export default function NewExpenseScreen() {
   const [expenseTitleText, setExpenseTitleText] = useState("");
-  const [expensePrice, setExpensePrice] = useState("");
+  const [expenseAmount, setExpenseAmount] = useState("");
   const expenses = useSelector((state) => state.expenses.items);
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -19,13 +19,13 @@ export default function NewExpenseScreen() {
     setExpenseTitleText(inputValue);
   }
 
-  function expensePriceChangeHandler(inputValue) {
-    setExpensePrice(inputValue);
+  function expenseAmountChangeHandler(inputValue) {
+    setExpenseAmount(inputValue);
   }
 
   function clearInputs() {
     setExpenseTitleText("");
-    setExpensePrice("");
+    setExpenseAmount("");
   }
 
   function cancelHandler() {
@@ -39,7 +39,7 @@ export default function NewExpenseScreen() {
     const expense = {
       id: expenses.length,
       title: expenseTitleText,
-      price: +expensePrice,
+      price: +expenseAmount,
       date: date,
     };
 
@@ -62,7 +62,7 @@ export default function NewExpenseScreen() {
         placeholder="Price"
         keyboardType="numeric"
         placeholderTextColor={Colors.orange700}
-        onChangeText={expensePriceChangeHandler}
+        onChangeText={expenseAmountChangeHandler}
       />
 
       <View style={styles.controlButtons}>

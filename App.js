@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Provider } from "react-redux";
 
 import ExpensesScreen from "./screens/ExpensesScreen";
-import RecentScreen from "./screens/RecentScreen";
+import RecentExpensesScreen from "./screens/RecentExpensesScreen";
 import IconButton from "./components/IconButton";
 import NewExpenseScreen from "./screens/NewExpenseScreen";
 import { store } from "./store/store";
@@ -62,19 +62,20 @@ function TabsNavigator() {
       }}
     >
       <Tab.Screen
-        name="Recent"
-        title="Recent Expenses"
-        component={RecentScreen}
+        name="RecentExpenses"
+        component={RecentExpensesScreen}
         options={{
+          title: "Recent Expenses",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="hourglass-outline" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="All Expenses"
+        name="AllExpenses"
         component={ExpensesScreen}
         options={{
+          title: "All Expenses",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="wallet-outline" color={color} size={size} />
           ),

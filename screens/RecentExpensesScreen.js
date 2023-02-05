@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
 
 import ExpensesList from "../components/ExpensesList";
+import ExpensesSummary from "../components/ExpensesSummary";
 
 export default function RecentScreen() {
   let expenses = useSelector((state) => state.expenses.items);
@@ -13,5 +14,10 @@ export default function RecentScreen() {
     return new Date(item.date) > dateWeekAgo;
   });
 
-  return <ExpensesList items={expenses} />;
+  return (
+    <>
+      <ExpensesSummary items={expenses} periodText="Last 7 days:" />
+      <ExpensesList items={expenses} />
+    </>
+  );
 }
