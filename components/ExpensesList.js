@@ -1,21 +1,21 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
+
+import Expense from "./Expense";
 
 export default function ExpensesList({ items }) {
   return (
-    <View>
+    <View style={styles.listContainer}>
       {items.map((item) => (
-        <View key={item.id}>
-          <Text>{item.title}</Text>
-          <Text>{item.date.toString()}</Text>
-          <View>
-            <Text>{item.price}</Text>
-          </View>
-        </View>
+        <Expense itemData={item} />
       ))}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-	
-})
+  listContainer: {
+    flexDirection: "column",
+    margin: 8,
+    padding: 8,
+  },
+});

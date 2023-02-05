@@ -1,4 +1,3 @@
-import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
 
 import ExpensesList from "../components/ExpensesList";
