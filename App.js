@@ -63,6 +63,7 @@ function TabsNavigator() {
     >
       <Tab.Screen
         name="Recent"
+        title="Recent Expenses"
         component={RecentScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -71,7 +72,7 @@ function TabsNavigator() {
         }}
       />
       <Tab.Screen
-        name="Expenses"
+        name="All Expenses"
         component={ExpensesScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -107,8 +108,16 @@ export default function App() {
               component={TabsNavigator}
               options={{ headerShown: false }}
             />
-            <Stack.Screen name="NewExpense" component={NewExpenseScreen} />
-            <Stack.Screen name="EditExpense" component={EditExpenseScreen} />
+            <Stack.Screen
+              name="NewExpense"
+              title="New Expense"
+              component={NewExpenseScreen}
+            />
+            <Stack.Screen
+              name="EditExpense"
+              title="Edit Expense"
+              component={EditExpenseScreen}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
