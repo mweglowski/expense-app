@@ -5,7 +5,7 @@ export default function Expense({ itemData }) {
   const navigation = useNavigation();
 
   function editExpenseHandler() {
-    navigation.navigate("EditExpense", { expenseId: itemData.id });
+    navigation.navigate("EditExpense", { expenseData: itemData });
   }
 
   const date = new Date(itemData.date);
@@ -49,10 +49,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   priceContainer: {
-    width: 70,
+    minWidth: 80,
     padding: 8,
-    backgroundColor: "lightgray",
+    backgroundColor: "white",
     borderRadius: 8,
+    elevation: 4,
   },
   price: {
     textAlign: "center",

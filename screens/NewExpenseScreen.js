@@ -18,7 +18,7 @@ export default function NewExpenseScreen() {
     setExpenseTitleText(inputValue);
   }
 
-  function expensePriceChangerHandler(inputValue) {
+  function expensePriceChangeHandler(inputValue) {
     setExpensePrice(inputValue);
   }
 
@@ -59,7 +59,7 @@ export default function NewExpenseScreen() {
         style={styles.input}
         placeholder="Price"
         keyboardType="numeric"
-        onChangeText={expensePriceChangerHandler}
+        onChangeText={expensePriceChangeHandler}
       />
 
       <View style={styles.controlButtons}>
