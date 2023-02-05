@@ -1,4 +1,5 @@
 import { View, StyleSheet, FlatList, Text } from "react-native";
+import { Colors } from "../assets/colors";
 
 import Expense from "./Expense";
 
@@ -10,11 +11,15 @@ export default function ExpensesList({ items }) {
 
   return (
     <View style={styles.listContainer}>
-      <FlatList
-        data={items}
-        keyExtractor={(item) => item.id}
-        renderItem={renderExpenseItem}
-      />
+      {items.length !== 0 ? (
+        <FlatList
+          data={items}
+          keyExtractor={(item) => item.id}
+          renderItem={renderExpenseItem}
+        />
+      ) : (
+        <Text style={styles.feedbackText}>No expenses found.</Text>
+      )}
     </View>
   );
 }
@@ -25,4 +30,11 @@ const styles = StyleSheet.create({
     margin: 8,
     padding: 8,
   },
+  feedbackText: {
+    marginVertical: 8, 
+    marginHorizontal: 'auto',
+    textAlign: 'center',
+    fontSize: 16,
+    color: Colors.orange500,
+  }
 });

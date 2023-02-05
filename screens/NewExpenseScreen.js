@@ -39,7 +39,7 @@ export default function NewExpenseScreen() {
     const expense = {
       id: expenses.length,
       title: expenseTitleText,
-      price: +expenseAmount,
+      amount: +expenseAmount,
       date: date,
     };
 
@@ -59,7 +59,7 @@ export default function NewExpenseScreen() {
 
       <TextInput
         style={styles.input}
-        placeholder="Price"
+        placeholder="Amount"
         keyboardType="numeric"
         placeholderTextColor={Colors.orange700}
         onChangeText={expenseAmountChangeHandler}

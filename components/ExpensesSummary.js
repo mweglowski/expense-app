@@ -8,7 +8,7 @@ export default function ExpensesSummary({ items, periodText }) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{periodText}</Text>
-      <Text style={styles.text}>{sum.toFixed(2)}$</Text>
+      <Text style={styles.text}>${sum.toFixed(2)}</Text>
     </View>
   );
 }
