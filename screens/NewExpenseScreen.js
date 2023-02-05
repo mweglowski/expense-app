@@ -29,7 +29,7 @@ export default function NewExpenseScreen() {
   }
 
   function cancelHandler() {
-    navigation.navigate("Tabs");
+    navigation.goBack();
     clearInputs();
   }
 
@@ -45,7 +45,7 @@ export default function NewExpenseScreen() {
 
     dispatch(addExpense(expense));
     clearInputs();
-    navigation.navigate("Tabs");
+    navigation.goBack();
   }
 
   return (
