@@ -12,6 +12,7 @@ import IconButton from "./components/IconButton";
 import NewExpenseScreen from "./screens/NewExpenseScreen";
 import { store } from "./store/store";
 import EditExpenseScreen from "./screens/EditExpenseScreen";
+import { Colors } from "./assets/colors";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,7 +27,15 @@ function TabsNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="Expenses"
+      sceneContainerStyle={{
+        backgroundColor: Colors.gray900,
+      }}
       screenOptions={{
+        headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: Colors.gray800,
+        },
+        headerTintColor: Colors.orange300,
         headerTitleAlign: "center",
         headerRight: () => {
           return (
@@ -34,11 +43,22 @@ function TabsNavigator() {
               style={styles.headerIcon}
               icon="add"
               size={32}
-              color="black"
+              color={Colors.orange300}
               onPress={showNewExpenseScreen}
             />
           );
         },
+        tabBarStyle: {
+          backgroundColor: Colors.gray800,
+          height: 60,
+        },
+        tabBarLabelStyle: {
+          marginTop: -10,
+          marginBottom: 6,
+          fontSize: 14,
+        },
+        tabBarActiveTintColor: Colors.orange400,
+        tabBarInactiveTintColor: "gray",
       }}
     >
       <Tab.Screen
@@ -69,7 +89,19 @@ export default function App() {
       <Provider store={store}>
         <StatusBar style="dark" />
         <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerTitleAlign: "center" }}>
+          <Stack.Navigator
+            screenOptions={{
+              headerTitleAlign: "center",
+              headerStyle: {
+                backgroundColor: Colors.gray800,
+              },
+              headerTintColor: Colors.orange300,
+              headerTitleAlign: "center",
+              contentStyle: {
+                backgroundColor: Colors.gray900,
+              },
+            }}
+          >
             <Stack.Screen
               name="Tabs"
               component={TabsNavigator}

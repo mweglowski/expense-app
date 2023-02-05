@@ -1,13 +1,20 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 
 import Expense from "./Expense";
 
 export default function ExpensesList({ items }) {
+  function renderExpenseItem(itemData) {
+    const item = itemData.item;
+    return <Expense itemData={item} />;
+  }
+
   return (
     <View style={styles.listContainer}>
-      {items.map((item) => (
-        <Expense itemData={item} />
-      ))}
+      <FlatList
+        data={items}
+        keyExtractor={(item) => item.id}
+        renderItem={renderExpenseItem}
+      />
     </View>
   );
 }

@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import { Colors } from "../assets/colors";
 
 export default function Expense({ itemData }) {
   const navigation = useNavigation();
@@ -40,23 +41,30 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     margin: 6,
-    padding: 6,
-    backgroundColor: "white",
+    padding: 8,
+    backgroundColor: Colors.gray600,
     borderRadius: 8,
     elevation: 4,
   },
   title: {
     fontWeight: "bold",
+    fontSize: 16,
+    color: Colors.orange300,
+  },
+  date: {
+    color: Colors.orange500,
   },
   priceContainer: {
     minWidth: 80,
     padding: 8,
-    backgroundColor: "white",
+    backgroundColor: Colors.orange400,
     borderRadius: 8,
-    elevation: 4,
+    elevation: 12,
+    shadowColor: Colors.orange400,
   },
   price: {
     textAlign: "center",
     fontWeight: "bold",
+    color: Colors.gray800,
   },
 });

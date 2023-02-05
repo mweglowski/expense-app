@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { removeExpense, updateExpense } from "../store/expenses";
 
 import FormButton from "../components/FormButton";
+import { Colors } from "../assets/colors";
 
 export default function EditExpenseScreen({ route }) {
   let { expenseData } = route.params
@@ -58,6 +59,7 @@ export default function EditExpenseScreen({ route }) {
       <TextInput
         style={styles.input}
         placeholder="Title"
+        placeholderTextColor={Colors.orange700}
         onChangeText={expenseTitleTextChangeHandler}
         value={expenseTitleText}
       />
@@ -65,6 +67,7 @@ export default function EditExpenseScreen({ route }) {
       <TextInput
         style={styles.input}
         placeholder="Price"
+        placeholderTextColor={Colors.orange700}
         keyboardType="numeric"
         onChangeText={expensePriceChangeHandler}
         value={expensePrice.toString()}
@@ -72,19 +75,19 @@ export default function EditExpenseScreen({ route }) {
 
       <View style={styles.controlButtons}>
         <FormButton
-          containerStyle={[styles.button, styles.cancelButton]}
+          containerStyle={[styles.cancelButton]}
           onPress={cancelHandler}
         >
           Cancel
         </FormButton>
         <FormButton
-          containerStyle={[styles.button, styles.cancelButton]}
+          containerStyle={[styles.cancelButton]}
           onPress={deleteExpenseHandler}
         >
           Delete
         </FormButton>
         <FormButton
-          containerStyle={[styles.button, styles.submitButton]}
+          containerStyle={[styles.submitButton]}
           onPress={updateExpenseHandler}
         >
           Submit
@@ -102,10 +105,13 @@ const styles = StyleSheet.create({
   input: {
     padding: 8,
     marginBottom: 24,
-    backgroundColor: "white",
+    backgroundColor: Colors.gray900,
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.orange500,
     elevation: 4,
     borderRadius: 8,
     fontSize: 16,
+    color: Colors.orange500,
   },
   button: {
     backgroundColor: "gray",

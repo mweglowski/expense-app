@@ -1,12 +1,20 @@
 import { Pressable, View, Text, StyleSheet } from "react-native";
+import { Colors } from "../assets/colors";
 
-export default function FormButton({ children, onPress, containerStyle, textStyle }) {
+export default function FormButton({
+  children,
+  onPress,
+  containerStyle,
+  textStyle,
+}) {
   return (
-    <View style={[styles.buttonContainer, containerStyle]}>
-      <Pressable onPress={onPress}>
-        <Text style={[styles.text, textStyle]}>{children}</Text>
-      </Pressable>
-    </View>
+    <Pressable
+      style={[styles.buttonContainer, containerStyle]}
+      onPress={onPress}
+      android_ripple={{ color: Colors.orange500 }}
+    >
+      <Text style={[styles.text, textStyle]}>{children}</Text>
+    </Pressable>
   );
 }
 
@@ -16,12 +24,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     paddingHorizontal: 16,
-    backgroundColor: "white",
-		elevation: 4,
+    elevation: 8,
+    shadowColor: Colors.orange300,
     borderRadius: 8,
+    backgroundColor: Colors.gray900,
+    // borderWidth: 2,
+    borderColor: Colors.orange400,
   },
   text: {
-		textAlign: "center",
-		fontSize: 16,
+    color: Colors.orange400,
+    textAlign: "center",
+    fontSize: 16,
   },
 });

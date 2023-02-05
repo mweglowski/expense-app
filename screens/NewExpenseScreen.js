@@ -6,13 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { addExpense } from "../store/expenses";
 
 import FormButton from "../components/FormButton";
+import { Colors } from "../assets/colors";
 
 export default function NewExpenseScreen() {
   const [expenseTitleText, setExpenseTitleText] = useState("");
   const [expensePrice, setExpensePrice] = useState("");
   const expenses = useSelector((state) => state.expenses.items);
   const dispatch = useDispatch();
-	const navigation = useNavigation();
+  const navigation = useNavigation();
 
   function expenseTitleTextChangeHandler(inputValue) {
     setExpenseTitleText(inputValue);
@@ -28,7 +29,7 @@ export default function NewExpenseScreen() {
   }
 
   function cancelHandler() {
-		navigation.navigate("Tabs")
+    navigation.navigate("Tabs");
     clearInputs();
   }
 
@@ -44,7 +45,7 @@ export default function NewExpenseScreen() {
 
     dispatch(addExpense(expense));
     clearInputs();
-		navigation.navigate("Tabs")
+    navigation.navigate("Tabs");
   }
 
   return (
@@ -52,6 +53,7 @@ export default function NewExpenseScreen() {
       <TextInput
         style={styles.input}
         placeholder="Title"
+        placeholderTextColor={Colors.orange700}
         onChangeText={expenseTitleTextChangeHandler}
       />
 
@@ -59,18 +61,21 @@ export default function NewExpenseScreen() {
         style={styles.input}
         placeholder="Price"
         keyboardType="numeric"
+        placeholderTextColor={Colors.orange700}
         onChangeText={expensePriceChangeHandler}
       />
 
       <View style={styles.controlButtons}>
         <FormButton
-          containerStyle={[styles.button, styles.cancelButton]}
+          containerStyle={[styles.cancelButton]}
+          textStyle={styles.buttonText}
           onPress={cancelHandler}
         >
           Cancel
         </FormButton>
         <FormButton
-          containerStyle={[styles.button, styles.submitButton]}
+          containerStyle={[styles.submitButton]}
+          textStyle={styles.buttonText}
           onPress={addNewExpenseHandler}
         >
           Submit
@@ -88,13 +93,13 @@ const styles = StyleSheet.create({
   input: {
     padding: 8,
     marginBottom: 24,
-    backgroundColor: "white",
+    backgroundColor: Colors.gray900,
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.orange500,
     elevation: 4,
     borderRadius: 8,
     fontSize: 16,
-  },
-  button: {
-    backgroundColor: "gray",
+    color: Colors.orange500,
   },
   cancelButton: {},
   submitButton: {},
