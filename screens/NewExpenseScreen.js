@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addExpense } from "../store/expenses";
 
 import ExpenseForm from "../components/ExpenseForm";
+import { storeExpense } from "../util/http";
 
 export default function EditExpenseScreen() {
   const dispatch = useDispatch();
@@ -20,6 +21,9 @@ export default function EditExpenseScreen() {
       id: expenses.length,
       ...newExpenseData,
     };
+
+    // ADD EXPENSE TO DATABASE
+    storeExpense(expense)
 
     dispatch(addExpense(expense));
     navigation.goBack();

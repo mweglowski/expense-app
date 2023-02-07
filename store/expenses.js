@@ -3,14 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 const expensesSlice = createSlice({
   name: "expenses",
   initialState: {
-    items: [
-      { id: 0, date: new Date("01/07/2023").toISOString(), title: "Book", amount: 20.00 },
-      { id: 1, date: new Date("01/12/2023").toISOString(), title: "Phone", amount: 1000.00 },
-      { id: 2, date: new Date("01/19/2023").toISOString(), title: "Charger", amount: 20.99 },
-      { id: 3, date: new Date().toISOString(), title: "Macbook", amount: 1500.00 },
-    ],
+    items: [],
   },
   reducers: {
+    setExpenses: (state, action) => {
+      console.log(action.payload)
+      state.items = action.payload;
+    },
     addExpense: (state, action) => {
       state.items.push(action.payload);
     },
@@ -24,6 +23,7 @@ const expensesSlice = createSlice({
   },
 });
 
+export const setExpenses = expensesSlice.actions.setExpenses;
 export const addExpense = expensesSlice.actions.addExpense;
 export const updateExpense = expensesSlice.actions.updateExpense;
 export const removeExpense = expensesSlice.actions.removeExpense;
