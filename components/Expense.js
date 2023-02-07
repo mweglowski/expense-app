@@ -6,7 +6,7 @@ export default function Expense({ itemData }) {
   const navigation = useNavigation();
 
   function editExpenseHandler() {
-    navigation.navigate("EditExpense", { expenseData: itemData });
+    navigation.navigate("EditExpense", { selectedExpense: itemData });
   }
 
   const date = new Date(itemData.date);

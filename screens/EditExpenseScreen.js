@@ -1,125 +1,52 @@
-import { useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { useDispatch } from "react-redux";
 import { removeExpense, updateExpense } from "../store/expenses";
 
-import FormButton from "../components/FormButton";
-import { Colors } from "../assets/colors";
+import ExpenseForm from "../components/ExpenseForm";
 
 export default function EditExpenseScreen({ route }) {
-  let { expenseData } = route.params
-  const [expenseTitleText, setExpenseTitleText] = useState(expenseData.title);
-  const [expenseAmount, setExpenseAmount] = useState(expenseData.amount);
+  let { selectedExpense } = route.params;
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  function expenseTitleTextChangeHandler(inputValue) {
-    setExpenseTitleText(inputValue);
-  }
-
-  function expenseAmountChangeHandler(inputValue) {
-    setExpenseAmount(inputValue);
-  }
-
-  function clearInputs() {
-    setExpenseTitleText("");
-    setExpenseAmount("");
-  }
-
   function cancelHandler() {
     navigation.goBack();
-    clearInputs();
   }
 
-  function updateExpenseHandler() {
-    const { id, date } = expenseData
-
-    const expense = {
-      id: id,
-      title: expenseTitleText,
-      amount: +expenseAmount,
-      date: date,
-    };
-
-    dispatch(updateExpense(expense));
-    clearInputs();
+  function deleteHandler() {
+    dispatch(removeExpense(selectedExpense));
     navigation.goBack();
   }
 
-  function deleteExpenseHandler() {
-    dispatch(removeExpense(expenseData))
-    clearInputs();
+  function confirmHandler(updatedData) {
+    const { id } = selectedExpense;
+
+    let expense = {
+      ...updatedData
+    };
+    expense.id = id
+
+    dispatch(updateExpense(expense));
     navigation.goBack();
   }
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Title"
-        placeholderTextColor={Colors.orange700}
-        onChangeText={expenseTitleTextChangeHandler}
-        value={expenseTitleText}
+      <ExpenseForm
+        submitButtonLabel="Update"
+        defaultValues={selectedExpense}
+        onCancel={cancelHandler}
+        onDelete={deleteHandler}
+        onSubmit={confirmHandler}
       />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Amount"
-        placeholderTextColor={Colors.orange700}
-        keyboardType="numeric"
-        onChangeText={expenseAmountChangeHandler}
-        value={expenseAmount.toString()}
-      />
-
-      <View style={styles.controlButtons}>
-        <FormButton
-          containerStyle={[styles.cancelButton]}
-          onPress={cancelHandler}
-        >
-          Cancel
-        </FormButton>
-        <FormButton
-          containerStyle={[styles.cancelButton]}
-          onPress={deleteExpenseHandler}
-        >
-          Delete
-        </FormButton>
-        <FormButton
-          containerStyle={[styles.submitButton]}
-          onPress={updateExpenseHandler}
-        >
-          Submit
-        </FormButton>
-      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
     padding: 24,
-  },
-  input: {
-    padding: 8,
-    marginBottom: 24,
-    backgroundColor: Colors.gray900,
-    borderBottomWidth: 2,
-    borderBottomColor: Colors.orange500,
-    elevation: 4,
-    borderRadius: 8,
-    fontSize: 16,
-    color: Colors.orange500,
-  },
-  button: {
-    backgroundColor: "gray",
-  },
-  cancelButton: {},
-  submitButton: {},
-  controlButtons: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
   },
 });

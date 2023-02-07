@@ -112,12 +112,12 @@ export default function App() {
             />
             <Stack.Screen
               name="NewExpense"
-              title="New Expense"
+              options={{ title: "New Expense" }}
               component={NewExpenseScreen}
             />
             <Stack.Screen
               name="EditExpense"
-              title="Edit Expense"
+              options={{ title: "Edit Expense" }}
               component={EditExpenseScreen}
             />
           </Stack.Navigator>
