@@ -6,8 +6,14 @@ import { addExpense } from "../store/expenses";
 
 import ExpenseForm from "../components/ExpenseForm";
 import { storeExpense } from "../util/http";
+import { useState } from "react";
 
-export default function EditExpenseScreen() {
+import LoadingOverlay from "../components/LoadingOverlay";
+import ErrorOverlay from "../components/ErrorOverlay";
+
+export default function NewExpenseScreen() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setIsError] = useState();
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const expenses = useSelector((state) => state.expenses.items);
@@ -16,17 +22,32 @@ export default function EditExpenseScreen() {
     navigation.goBack();
   }
 
-  function confirmHandler(newExpenseData) {
-    const expense = {
-      id: expenses.length,
-      ...newExpenseData,
-    };
+  async function confirmHandler(newExpenseData) {
+    setIsSubmitting(true);
+    try {
+      // ADD EXPENSE TO DATABASE
+      const id = await storeExpense(newExpenseData);
 
-    // ADD EXPENSE TO DATABASE
-    storeExpense(expense)
+      // ADD TO REDUX
+      dispatch(addExpense({ ...newExpenseData, id: id }));
+      navigation.goBack();
+    } catch (err) {
+      setIsError("Deleting expense failed - try again later.");
+    }
 
-    dispatch(addExpense(expense));
-    navigation.goBack();
+    setIsSubmitting(false);
+  }
+
+  // function errorHandler() {
+  //   setIsError(null)
+  // }
+
+  if (error && isSubmitting) {
+    return <ErrorOverlay message={error} />
+  }
+
+  if (isSubmitting) {
+    return <LoadingOverlay />;
   }
 
   return (

@@ -2,11 +2,17 @@ import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { useDispatch } from "react-redux";
-import { removeExpense, updateExpense } from "../store/expenses";
+import { removeExpense, updateExpenseLocally } from "../store/expenses";
+import { updateExpense, deleteExpense } from "../util/http";
 
 import ExpenseForm from "../components/ExpenseForm";
+import { useState } from "react";
+import LoadingOverlay from "../components/LoadingOverlay";
+import ErrorOverlay from "../components/ErrorOverlay";
 
 export default function EditExpenseScreen({ route }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setIsError] = useState();
   let { selectedExpense } = route.params;
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -15,21 +21,38 @@ export default function EditExpenseScreen({ route }) {
     navigation.goBack();
   }
 
-  function deleteHandler() {
+  async function deleteHandler() {
+    setIsSubmitting(true);
+    await deleteExpense(selectedExpense.id);
+
     dispatch(removeExpense(selectedExpense));
     navigation.goBack();
   }
 
-  function confirmHandler(updatedData) {
+  async function confirmHandler(updatedData) {
     const { id } = selectedExpense;
 
     let expense = {
-      ...updatedData
+      ...updatedData,
     };
-    expense.id = id
+    expense.id = id;
 
-    dispatch(updateExpense(expense));
-    navigation.goBack();
+    setIsSubmitting(true);
+    try {
+      dispatch(updateExpenseLocally(expense));
+      await updateExpense(id, expense);
+      navigation.goBack();
+    } catch (err) {
+      setIsError("Updating expense failed - try again later.");
+    }
+  }
+
+  if (error) {
+    return <ErrorOverlay massage={error} />;
+  }
+
+  if (isSubmitting) {
+    return <LoadingOverlay />;
   }
 
   return (
